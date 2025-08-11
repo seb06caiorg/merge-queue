@@ -1,0 +1,23 @@
+name: Merge Queue Test
+
+on:
+  merge_group:
+    types: [checks_requested]
+
+jobs:
+  dummy-wait:
+    name: Dummy wait and pass
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Wait for 5 minutes
+        run: sleep 300
+
+      - name: Finish
+        run: echo "Job passed after waiting."
+
+
