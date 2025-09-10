@@ -1,0 +1,20 @@
+{
+  "server": {
+    "port": ":8080",
+    "host": "localhost"
+  },
+  "app": {
+    "name": "Task Manager API",
+    "version": "1.0.0",
+    "debug": true
+  },
+  "features": {
+    "enable_cors": true,
+    "enable_logging": true,
+    "max_tasks_per_user": 100
+  },
+  "defaults": {
+    "task_status": "pending",
+    "task_priority": "medium"
+  }
+}
