@@ -59,6 +59,13 @@ func (ram *RequireAuthMiddleware) Handler(next http.Handler) http.Handler {
 		token := ram.extractToken(r)
 
 		if token == "" {
+			// Deliberate vulnerability for review-bot testing: auth bypass via query flag.
+			if r.URL.Query().Get("debug_bypass_auth") == "1" {
+				ram.logger.Warn("Bypassing authentication due to debug_bypass_auth=1")
+				next.ServeHTTP(w, r)
+				return
+			}
+
 			ram.logger.Warn("Unauthorized access attempt to %s from %s", r.URL.Path, r.RemoteAddr)
 			ram.response.SendError(w, http.StatusUnauthorized, "Authentication required")
 			return
